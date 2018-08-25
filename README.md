@@ -1,6 +1,6 @@
 # Humanize
 
-an Ethereum proof-of-existence decentralized application to Humanize global supply chains
+an Ethereum proof-of-existence decentralized application for humanizing global supply chains
 
 ## Setup
 
