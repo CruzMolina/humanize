@@ -2,7 +2,7 @@ const Web3 = require("web3");
 
 let web3;
 
-const isMetamaskInstalled = () => {
+const isWeb3ProviderInstalled = () => {
   if (typeof window.web3 !== "undefined") {
     web3 = new Web3(window.web3.currentProvider);
     return true;
@@ -12,45 +12,48 @@ const isMetamaskInstalled = () => {
     );
     web3 = new Web3(provider);
     document.getElementById("web-3").innerHTML =
-      "<h3 class='display-10 alert alert-danger'>Error: Metamask was not found!</h3> Read-only mode. Metamask is needed to write data to the blockchain.";
+      "<h3 class='display-10 alert alert-danger'>Error: Web3 Provider not found!</h3> Read-only mode. A Web3 Provider is needed to write data to the blockchain.";
     return false;
   }
 };
 
-const isMetamaskLocked = () => {
-  return new Promise((resolve, reject) => {
-    web3.eth.getAccounts((err, accounts) => {
-      if (!err && accounts[0]) {
-        resolve(true);
-      } else {
-        document.getElementById("web-3").innerHTML =
-          "<h3 class='display-10 alert alert-danger'>Error: Metamask locked!</h3> Please unlock Metamask to write data to the blockchain.";
-        reject(false);
-      }
-    });
+const isWeb3ProviderLocked = async () => {
+  await web3.eth.getAccounts((err, accounts) => {
+    if (err || !accounts[0]) {
+      document.getElementById("web-3").innerHTML =
+        "<h3 class='display-10 alert alert-danger'>Error: Web3 Provider locked!</h3> Please unlock your Web3 Provider to write data to the blockchain.";
+      return false;
+    } else {
+      return true;
+    }
   });
 };
 
-const getMetamaskNetwork = async () => {
-  const networkID = await web3.version.network;
-  if (networkID === "3") {
-  } else {
-    document.getElementById("web-3").innerHTML =
-      "<h3 class='display-10 alert alert-danger'>Error: Metamask is not connected to Ropsten!</h3> Please connect to the Ropsten Test Network to write data to the blockchain.";
-  }
+const isValidWeb3NetworkId = async () => {
+  await web3.version.getNetwork((err, network) => {
+    if (network !== "4" || err) {
+      document.getElementById("web-3").innerHTML =
+        "<h3 class='display-10 alert alert-danger'>Error: Web3 Provider not connected to Rinkeby!</h3> Please connect to the Rinkeby Test Network to write data to the blockchain.";
+      return false;
+    } else {
+      return true;
+    }
+  });
 };
 
-const validateMetamask = async () => {
-  await isMetamaskLocked();
-  await getMetamaskNetwork();
+const validateWeb3Provider = async () => {
+  let web3Unlocked = await isWeb3ProviderLocked();
+  let correctNetwork = await isValidWeb3NetworkId();
+
+  return web3Unlocked && correctNetwork;
 };
 
-if (!isMetamaskInstalled()) {
+if (!isWeb3ProviderInstalled()) {
 } else {
-  validateMetamask();
+  validateWeb3Provider();
 
-  // reload page if Metamask is locked or configured to the wrong network
-  web3.currentProvider.publicConfigStore.on("update", function(result) {
+  // reload page if Web3 Provider is locked or configured to the wrong network
+  web3.currentProvider.publicConfigStore.on("update", result => {
     if (document.getElementById("web-3").innerHTML) {
       location.reload();
     }
