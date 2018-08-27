@@ -10,38 +10,42 @@ class Home extends Component {
     ipfsHash: null,
     buffer: "",
     ethAddress: "",
-    blockNumber: "",
-    transactionHash: "",
-    gasUsed: "",
-    txReceipt: "",
+    userAddress: "",
     media: "",
     loading: false,
     error_message: "",
-    name: "",
+    name: "N/A",
     location: "N/A",
     age: "N/A"
   };
 
-  getSubmissions = async event => {
+  getSubmission = async event => {
     event.preventDefault();
-    await Humanize.ipfsHash.call((err, ipfsHash) => {
+    await Humanize.ipfsHash(web3.eth.accounts[0], (err, ipfsHash) => {
       this.setState({ media: ipfsHash });
-      console.log(this.state.media);
     });
   };
 
-  renderMedia() {
+  renderMedia = () => {
     if (this.state.media !== "") {
       const items = [
         {
-          header: this.state.media,
-          description: "View",
+          image: `https://gateway.ipfs.io/ipfs/${this.state.media}`,
+          header: (
+            <a href={`https://gateway.ipfs.io/ipfs/${this.state.media}`}>
+              View on IPFS<p />
+              <p />
+            </a>
+          ),
+          description: `Name: ${this.state.name} Age: ${
+            this.state.age
+          } Location: ${this.state.location}`,
           fluid: true
         }
       ];
-      return <Card.Group items={items} />;
+      return <Card.Group items={items} itemsPerRow={2} />;
     }
-  }
+  };
 
   captureFile = event => {
     event.stopPropagation();
@@ -59,50 +63,67 @@ class Home extends Component {
     this.setState({ buffer });
   };
 
+  renderSubmission = async () => {
+    await Humanize.ipfsHash(web3.eth.accounts[0], (err, ipfsHash) => {
+      this.setState({ media: ipfsHash });
+    });
+  };
+
+  renderUserAddress = async () => {
+    const userAddress = await web3.eth.accounts[0];
+    this.setState({ userAddress: `Your current address is ${userAddress}` });
+  };
+
+  renderContractAddress = async () => {
+    const ethAddress = await Humanize.address;
+
+    this.setState({
+      ethAddress: `You are interacting with the Humanize smart contract at address ${ethAddress} on the Rinkeby Test Network.`
+    });
+  };
+
+  ipfsAdd = async () => {
+    await this.renderUserAddress();
+    await this.renderContractAddress();
+    await ipfs.add(this.state.buffer, async (err, ipfsHash) => {
+      if (!ipfsHash) {
+        this.setState({ errorMessage: err.message });
+        this.setState({ loading: false });
+      } else {
+        this.setState({ ipfsHash: ipfsHash[0].hash });
+        // call Ethereum contract method "storeHash" and .send IPFS hash to etheruem contract
+        await this.storeHash();
+      }
+    });
+  };
+
+  storeHash = async () => {
+    await Humanize.storeHash(
+      this.state.ipfsHash,
+      {
+        from: web3.eth.accounts[0],
+        gas: 200000
+      },
+      async (err, transactionHash) => {
+        if (!err) {
+          this.setState({ loading: false });
+          await this.renderSubmission();
+        } else {
+          this.setState({ errorMessage: err.message });
+          this.setState({ loading: false });
+        }
+      }
+    );
+  };
+
   onSubmit = async event => {
     event.preventDefault();
 
     this.setState({ loading: true, errorMessage: "" });
-    // bring in user's metamask account address
-    const accounts = await web3.eth.accounts;
 
-    console.log("Sending from Metamask account: " + accounts[0]);
-    console.log(Humanize);
-    // obtain contract address from humanize.js
-    const ethAddress = await Humanize.address;
-    this.setState({ ethAddress });
-
-    // save document to IPFS,return its hash#, and set hash# to state
-    await ipfs.add(this.state.buffer, (err, ipfsHash) => {
-      if (!ipfsHash) {
-        this.setState({ errorMessage: err.message });
-        console.log(err.message);
-      } else {
-        console.log(err, ipfsHash[0].hash);
-        // setState by setting ipfsHash to ipfsHash[0].hash
-        this.setState({ ipfsHash: ipfsHash[0].hash });
-        // call Ethereum contract method "storeHash" and .send IPFS hash to etheruem contract
-        // return the transaction hash from the ethereum contract
-
-        Humanize.storeHash(
-          this.state.ipfsHash,
-          {
-            from: accounts[0],
-            gas: 200000
-          },
-          (err, transactionHash) => {
-            if (!err) {
-              console.log(transactionHash);
-              this.setState({ transactionHash });
-            } else {
-              this.setState({ errorMessage: err.message });
-            }
-          }
-        ); // storehash
-      }
-      this.setState({ loading: false });
-    }); // await ipfs.add
-  }; // onSubmit
+    // save document to IPFS, return its hash#, and set hash# to state
+    await this.ipfsAdd();
+  };
 
   render() {
     return (
@@ -125,12 +146,32 @@ class Home extends Component {
                   <Form.Button content="Submit" icon="add circle" primary />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Input width={3} label="Name" placeholder="Name" />
-                  <Form.Input width={0} label="Age" placeholder="Age" />
+                  <Form.Input
+                    width={3}
+                    label="Name"
+                    placeholder="Name"
+                    value={this.state.name}
+                    onChange={event =>
+                      this.setState({ name: event.target.value })
+                    }
+                  />
+                  <Form.Input
+                    width={1}
+                    label="Age"
+                    placeholder="Age"
+                    value={this.state.age}
+                    onChange={event =>
+                      this.setState({ age: event.target.value })
+                    }
+                  />
                   <Form.Input
                     width={3}
                     label="Location"
                     placeholder="Location"
+                    value={this.state.location}
+                    onChange={event =>
+                      this.setState({ location: event.target.value })
+                    }
                   />
                 </Form.Group>
                 <Message
@@ -139,18 +180,18 @@ class Home extends Component {
                   content={this.state.errorMessage}
                 />
               </Form>
-              <p />
               <p>
-                NOTE: When submitting, there is a slight delay before you can
-                confirm your transaction.
+                Entering your name, age, and location is entirely optional.
+                <br />
+                <br />
+                <em>
+                  NOTE: When submitting, there is a slight delay before you can
+                  confirm your transaction.
+                </em>
               </p>
-              <p>To view your prior submissions, click the button below!</p>
-              <p>{this.state.ethAddress}</p>
-              <p>{this.state.ipfsHash}</p>
-              <Button
-                content="View Prior Submissions"
-                onClick={this.getSubmissions}
-              />
+              <h4>{this.state.ethAddress}</h4>
+              <h4>{this.state.userAddress}</h4>
+              <Button content="View Submission" onClick={this.getSubmission} />
               <p />
               {this.renderMedia()}
             </div>
