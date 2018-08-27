@@ -3,7 +3,12 @@
   "abi": [
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
       "name": "ipfsHash",
       "outputs": [
         {
@@ -30,20 +35,20 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b506102d3806100206000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806371dc61cb14610051578063c623674f146100ba575b600080fd5b34801561005d57600080fd5b506100b8600480360381019080803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919291929050505061014a565b005b3480156100c657600080fd5b506100cf610164565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561010f5780820151818401526020810190506100f4565b50505050905090810190601f16801561013c5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b8060009080519060200190610160929190610202565b5050565b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101fa5780601f106101cf576101008083540402835291602001916101fa565b820191906000526020600020905b8154815290600101906020018083116101dd57829003601f168201915b505050505081565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024357805160ff1916838001178555610271565b82800160010185558215610271579182015b82811115610270578251825591602001919060010190610255565b5b50905061027e9190610282565b5090565b6102a491905b808211156102a0576000816000905550600101610288565b5090565b905600a165627a7a72305820c1ac2d80ee7cc4cf818f8e7cd4d0c9a4512a3be1b1e4f405ea992a527de4cf4d0029",
-  "deployedBytecode": "0x60806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806371dc61cb14610051578063c623674f146100ba575b600080fd5b34801561005d57600080fd5b506100b8600480360381019080803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919291929050505061014a565b005b3480156100c657600080fd5b506100cf610164565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561010f5780820151818401526020810190506100f4565b50505050905090810190601f16801561013c5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b8060009080519060200190610160929190610202565b5050565b60008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101fa5780601f106101cf576101008083540402835291602001916101fa565b820191906000526020600020905b8154815290600101906020018083116101dd57829003601f168201915b505050505081565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024357805160ff1916838001178555610271565b82800160010185558215610271579182015b82811115610270578251825591602001919060010190610255565b5b50905061027e9190610282565b5090565b6102a491905b808211156102a0576000816000905550600101610288565b5090565b905600a165627a7a72305820c1ac2d80ee7cc4cf818f8e7cd4d0c9a4512a3be1b1e4f405ea992a527de4cf4d0029",
-  "sourceMap": "260:328:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;260:328:0;;;;;;;",
-  "deployedSourceMap": "260:328:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;528:57;;8:9:-1;5:2;;;30:1;27;20:12;5:2;528:57:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;342:22;;8:9:-1;5:2;;;30:1;27;20:12;5:2;342:22:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;342:22:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;528:57;580:1;569:8;:12;;;;;;;;;;;;:::i;:::-;;528:57;:::o;342:22::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;260:328::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.4.24;\n\n/** @title The Humanize Project Smart Contract */\n/*\nActs as the bridge between the web application, IPFS,\nand the Ethereum blockchain.\nHandles the logic of storing and returning the IPFS hash\nof each media file on the blockchain.\n*/\ncontract Humanize {\n\n // string variable holding the IPFS hash on the blockchain\n string public ipfsHash;\n\n /** @dev Stores the IPFS hash returned from\n     adding a file on the IPFS network into ipfsHash.\n   * @param x The hash returned from the IPFS network.\n   */\n function storeHash(string x) public {\n   ipfsHash = x;\n }\n\n}\n",
+  "bytecode": "0x608060405234801561001057600080fd5b5061034d806100206000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806371dc61cb14610051578063ca4bc9eb146100ba575b600080fd5b34801561005d57600080fd5b506100b8600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290505050610176565b005b3480156100c657600080fd5b506100fb600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101cc565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561013b578082015181840152602081019050610120565b50505050905090810190601f1680156101685780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002090805190602001906101c892919061027c565b5050565b60006020528060005260406000206000915090508054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102745780601f1061024957610100808354040283529160200191610274565b820191906000526020600020905b81548152906001019060200180831161025757829003601f168201915b505050505081565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106102bd57805160ff19168380011785556102eb565b828001600101855582156102eb579182015b828111156102ea5782518255916020019190600101906102cf565b5b5090506102f891906102fc565b5090565b61031e91905b8082111561031a576000816000905550600101610302565b5090565b905600a165627a7a723058204e4713eb96e867e02a2798db9f7fa461f1c7b2e46fc687a35d36b52c65daa3f70029",
+  "deployedBytecode": "0x60806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806371dc61cb14610051578063ca4bc9eb146100ba575b600080fd5b34801561005d57600080fd5b506100b8600480360381019080803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509192919290505050610176565b005b3480156100c657600080fd5b506100fb600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101cc565b6040518080602001828103825283818151815260200191508051906020019080838360005b8381101561013b578082015181840152602081019050610120565b50505050905090810190601f1680156101685780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002090805190602001906101c892919061027c565b5050565b60006020528060005260406000206000915090508054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102745780601f1061024957610100808354040283529160200191610274565b820191906000526020600020905b81548152906001019060200180831161025757829003601f168201915b505050505081565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106102bd57805160ff19168380011785556102eb565b828001600101855582156102eb579182015b828111156102ea5782518255916020019190600101906102cf565b5b5090506102f891906102fc565b5090565b61031e91905b8082111561031a576000816000905550600101610302565b5090565b905600a165627a7a723058204e4713eb96e867e02a2798db9f7fa461f1c7b2e46fc687a35d36b52c65daa3f70029",
+  "sourceMap": "260:412:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;260:412:0;;;;;;;",
+  "deployedSourceMap": "260:412:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;600:69;;8:9:-1;5:2;;;30:1;27;20:12;5:2;600:69:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;368:43;;8:9:-1;5:2;;;30:1;27;20:12;5:2;368:43:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;368:43:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;600:69;664:1;641:8;:20;650:10;641:20;;;;;;;;;;;;;;;:24;;;;;;;;;;;;:::i;:::-;;600:69;:::o;368:43::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;260:412::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.24;\n\n/** @title The Humanize Project Smart Contract */\n/*\nActs as the bridge between the web application, IPFS,\nand the Ethereum blockchain.\nHandles the logic of storing and returning the IPFS hash\nof each media file on the blockchain.\n*/\ncontract Humanize {\n\n // mapping for holding the IPFS hash of a given\n // user's address on the blockchain\n mapping (address => string) public ipfsHash;\n\n /** @dev Stores the IPFS hash returned from adding a file\n     on the IPFS network into the msg.sender's ipfsHash mapping.\n   * @param x The hash returned from the IPFS network.\n   */\n function storeHash(string x) public {\n   ipfsHash[msg.sender] = x;\n }\n\n}\n",
   "sourcePath": "/Users/Des1derata/Desktop/Code/Humanize-Final/contracts/Humanize.sol",
   "ast": {
     "absolutePath": "/Users/Des1derata/Desktop/Code/Humanize-Final/contracts/Humanize.sol",
     "exportedSymbols": {
       "Humanize": [
-        14
+        19
       ]
     },
-    "id": 15,
+    "id": 20,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -63,34 +68,53 @@
         "contractKind": "contract",
         "documentation": "@title The Humanize Project Smart Contract ",
         "fullyImplemented": true,
-        "id": 14,
+        "id": 19,
         "linearizedBaseContracts": [
-          14
+          19
         ],
         "name": "Humanize",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3,
+            "id": 5,
             "name": "ipfsHash",
             "nodeType": "VariableDeclaration",
-            "scope": 14,
-            "src": "342:22:0",
+            "scope": 19,
+            "src": "368:43:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_string_storage",
-              "typeString": "string"
+              "typeIdentifier": "t_mapping$_t_address_$_t_string_storage_$",
+              "typeString": "mapping(address => string)"
             },
             "typeName": {
-              "id": 2,
-              "name": "string",
-              "nodeType": "ElementaryTypeName",
-              "src": "342:6:0",
+              "id": 4,
+              "keyType": {
+                "id": 2,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "377:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "368:27:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_string_storage_ptr",
-                "typeString": "string"
+                "typeIdentifier": "t_mapping$_t_address_$_t_string_storage_$",
+                "typeString": "mapping(address => string)"
+              },
+              "valueType": {
+                "id": 3,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "388:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
               }
             },
             "value": null,
@@ -98,26 +122,69 @@
           },
           {
             "body": {
-              "id": 12,
+              "id": 17,
               "nodeType": "Block",
-              "src": "564:21:0",
+              "src": "636:33:0",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 10,
+                    "id": 15,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 8,
-                      "name": "ipfsHash",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 3,
-                      "src": "569:8:0",
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 10,
+                        "name": "ipfsHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "641:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_string_storage_$",
+                          "typeString": "mapping(address => string storage ref)"
+                        }
+                      },
+                      "id": 13,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 11,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 91,
+                          "src": "650:3:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 12,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "650:10:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "641:20:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -127,31 +194,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 9,
+                      "id": 14,
                       "name": "x",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5,
-                      "src": "580:1:0",
+                      "referencedDeclaration": 7,
+                      "src": "664:1:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
                         "typeString": "string memory"
                       }
                     },
-                    "src": "569:12:0",
+                    "src": "641:24:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 11,
+                  "id": 16,
                   "nodeType": "ExpressionStatement",
-                  "src": "569:12:0"
+                  "src": "641:24:0"
                 }
               ]
             },
-            "documentation": "@dev Stores the IPFS hash returned from\nadding a file on the IPFS network into ipfsHash.\n@param x The hash returned from the IPFS network.",
-            "id": 13,
+            "documentation": "@dev Stores the IPFS hash returned from adding a file\non the IPFS network into the msg.sender's ipfsHash mapping.\n@param x The hash returned from the IPFS network.",
+            "id": 18,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -159,16 +226,16 @@
             "name": "storeHash",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6,
+              "id": 8,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5,
+                  "id": 7,
                   "name": "x",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "547:8:0",
+                  "scope": 18,
+                  "src": "619:8:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -176,10 +243,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4,
+                    "id": 6,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "547:6:0",
+                    "src": "619:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -189,36 +256,36 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "546:10:0"
+              "src": "618:10:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 7,
+              "id": 9,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "564:0:0"
+              "src": "636:0:0"
             },
-            "scope": 14,
-            "src": "528:57:0",
+            "scope": 19,
+            "src": "600:69:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 15,
-        "src": "260:328:0"
+        "scope": 20,
+        "src": "260:412:0"
       }
     ],
-    "src": "0:589:0"
+    "src": "0:673:0"
   },
   "legacyAST": {
     "absolutePath": "/Users/Des1derata/Desktop/Code/Humanize-Final/contracts/Humanize.sol",
     "exportedSymbols": {
       "Humanize": [
-        14
+        19
       ]
     },
-    "id": 15,
+    "id": 20,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -238,34 +305,53 @@
         "contractKind": "contract",
         "documentation": "@title The Humanize Project Smart Contract ",
         "fullyImplemented": true,
-        "id": 14,
+        "id": 19,
         "linearizedBaseContracts": [
-          14
+          19
         ],
         "name": "Humanize",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 3,
+            "id": 5,
             "name": "ipfsHash",
             "nodeType": "VariableDeclaration",
-            "scope": 14,
-            "src": "342:22:0",
+            "scope": 19,
+            "src": "368:43:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_string_storage",
-              "typeString": "string"
+              "typeIdentifier": "t_mapping$_t_address_$_t_string_storage_$",
+              "typeString": "mapping(address => string)"
             },
             "typeName": {
-              "id": 2,
-              "name": "string",
-              "nodeType": "ElementaryTypeName",
-              "src": "342:6:0",
+              "id": 4,
+              "keyType": {
+                "id": 2,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "377:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "368:27:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_string_storage_ptr",
-                "typeString": "string"
+                "typeIdentifier": "t_mapping$_t_address_$_t_string_storage_$",
+                "typeString": "mapping(address => string)"
+              },
+              "valueType": {
+                "id": 3,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "388:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
               }
             },
             "value": null,
@@ -273,26 +359,69 @@
           },
           {
             "body": {
-              "id": 12,
+              "id": 17,
               "nodeType": "Block",
-              "src": "564:21:0",
+              "src": "636:33:0",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 10,
+                    "id": 15,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 8,
-                      "name": "ipfsHash",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 3,
-                      "src": "569:8:0",
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 10,
+                        "name": "ipfsHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "641:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_string_storage_$",
+                          "typeString": "mapping(address => string storage ref)"
+                        }
+                      },
+                      "id": 13,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 11,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 91,
+                          "src": "650:3:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 12,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "650:10:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "641:20:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
                         "typeString": "string storage ref"
@@ -302,31 +431,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 9,
+                      "id": 14,
                       "name": "x",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 5,
-                      "src": "580:1:0",
+                      "referencedDeclaration": 7,
+                      "src": "664:1:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
                         "typeString": "string memory"
                       }
                     },
-                    "src": "569:12:0",
+                    "src": "641:24:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 11,
+                  "id": 16,
                   "nodeType": "ExpressionStatement",
-                  "src": "569:12:0"
+                  "src": "641:24:0"
                 }
               ]
             },
-            "documentation": "@dev Stores the IPFS hash returned from\nadding a file on the IPFS network into ipfsHash.\n@param x The hash returned from the IPFS network.",
-            "id": 13,
+            "documentation": "@dev Stores the IPFS hash returned from adding a file\non the IPFS network into the msg.sender's ipfsHash mapping.\n@param x The hash returned from the IPFS network.",
+            "id": 18,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -334,16 +463,16 @@
             "name": "storeHash",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6,
+              "id": 8,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 5,
+                  "id": 7,
                   "name": "x",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "547:8:0",
+                  "scope": 18,
+                  "src": "619:8:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -351,10 +480,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4,
+                    "id": 6,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "547:6:0",
+                    "src": "619:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -364,33 +493,40 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "546:10:0"
+              "src": "618:10:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 7,
+              "id": 9,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "564:0:0"
+              "src": "636:0:0"
             },
-            "scope": 14,
-            "src": "528:57:0",
+            "scope": 19,
+            "src": "600:69:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 15,
-        "src": "260:328:0"
+        "scope": 20,
+        "src": "260:412:0"
       }
     ],
-    "src": "0:589:0"
+    "src": "0:673:0"
   },
   "compiler": {
     "name": "solc",
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "1535340845862": {
+      "events": {},
+      "links": {},
+      "address": "0x9e08cae24f2e008855b5bdef45552c3737f67856",
+      "transactionHash": "0x5fedf94888a97d075273139cf2c7ca3cd927647439852890b79bd09217742c4a"
+    }
+  },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-25T23:39:09.004Z"
+  "updatedAt": "2018-08-27T03:35:37.419Z"
 }
