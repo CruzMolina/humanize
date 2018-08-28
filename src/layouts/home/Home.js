@@ -21,9 +21,13 @@ class Home extends Component {
 
   getSubmission = async event => {
     event.preventDefault();
-    await Humanize.ipfsHash(web3.eth.accounts[0], (err, ipfsHash) => {
-      this.setState({ media: ipfsHash });
-    });
+    if (this.state.media !== "") {
+      this.setState({ media: "" });
+    } else {
+      await Humanize.ipfsHash(web3.eth.accounts[0], (err, ipfsHash) => {
+        this.setState({ media: ipfsHash });
+      });
+    }
   };
 
   renderMedia = () => {
@@ -64,8 +68,14 @@ class Home extends Component {
   };
 
   renderSubmission = async () => {
-    await Humanize.ipfsHash(web3.eth.accounts[0], (err, ipfsHash) => {
-      this.setState({ media: ipfsHash });
+    let ipfsHash;
+    await Humanize.ipfsHash(web3.eth.accounts[0], (err, _ipfsHash) => {
+      ipfsHash = _ipfsHash;
+      if (ipfsHash !== this.state.ipfsHash) {
+        this.renderSubmission();
+      } else {
+        this.setState({ loading: false, media: ipfsHash });
+      }
     });
   };
 
@@ -87,8 +97,7 @@ class Home extends Component {
     await this.renderContractAddress();
     await ipfs.add(this.state.buffer, async (err, ipfsHash) => {
       if (!ipfsHash) {
-        this.setState({ errorMessage: err.message });
-        this.setState({ loading: false });
+        this.setState({ errorMessage: err.message, loading: false });
       } else {
         this.setState({ ipfsHash: ipfsHash[0].hash });
         // call Ethereum contract method "storeHash" and .send IPFS hash to etheruem contract
@@ -106,11 +115,9 @@ class Home extends Component {
       },
       async (err, transactionHash) => {
         if (!err) {
-          this.setState({ loading: false });
           await this.renderSubmission();
         } else {
-          this.setState({ errorMessage: err.message });
-          this.setState({ loading: false });
+          this.setState({ errorMessage: err.message, loading: false });
         }
       }
     );
@@ -119,7 +126,7 @@ class Home extends Component {
   onSubmit = async event => {
     event.preventDefault();
 
-    this.setState({ loading: true, errorMessage: "" });
+    this.setState({ loading: true, errorMessage: "", media: "" });
 
     // save document to IPFS, return its hash#, and set hash# to state
     await this.ipfsAdd();
