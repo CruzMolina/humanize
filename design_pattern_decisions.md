@@ -1,3 +1,3 @@
 # Design Pattern Decisions
 
-TODO
+In designing a simple PoE dapp, I decided to make the smart contract for V1 as simple as possible. I needed a way to write some simple data to the blockchain in order to verify and timestamp uploading media to IPFS. The most simplest solution was to just write the hash of the file uploaded to IPFS to the smart contract and to have the hash written to the blockchain mapped to the msg.sender. In V2 I hope to update the mapping to either an array of strings (and then populate to the front-end appropriately) or have the mapping point to an array of structs that stores miscellaneous user data (perhaps a timestamp, the user's name, age, location, etc).
