@@ -1,7 +1,8 @@
 {
-  "name": "react-uport-box",
-  "version": "0.1.0",
+  "name": "humanize",
+  "version": "1.0.0",
   "private": true,
+  "homepage": "./",
   "devDependencies": {
     "autoprefixer": "6.5.1",
     "babel-core": "6.17.0",
