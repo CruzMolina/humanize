@@ -1,0 +1,3 @@
+Deployed Addresses
+
+The Humanize Smart Contract lives on the Rinkeby Test Network at 0x94B46BBebf2cE1C30b03dcBD5D2810ABfbf30C33.
